@@ -56,9 +56,11 @@ class Jira(HttpTransport):
                     auth=auth,
                     timeout=30,
                 )
-                if r.status_code not in (200, 201, 202, 204):
-                    self.raise_for_response(r)
-                return r
+            except curl.CurlError as e:
+                raise TransportError(e.message)
+            if r.status_code not in (200, 201, 202, 204):
+                self.raise_for_response(r)
+            return r
             except TransportError as e:
                 last_error = e
                 tries_left -= 1
