@@ -76,6 +76,9 @@
     GitHub repo <span>{{ ch.github.repo }}</span>
 {% elif ch.kind == "gotify" and ch.gotify.priority_display %}
     Gotify, {{ ch.gotify.priority_display }}
+{% elif ch.kind == "jira" %}
+    Jira project <span>{{ ch.jira.project_key }}</span>,
+    issue type <span>{{ ch.jira.issue_type }}</span>
 {% else %}
     {{ ch.get_kind_display }}
 {% endif %}
