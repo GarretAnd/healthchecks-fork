@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     "hc.integrations.googlechat",
     "hc.integrations.gotify",
     "hc.integrations.group",
+    "hc.integrations.jira",
     "hc.integrations.matrix",
     "hc.integrations.mattermost",
     "hc.integrations.msteamsw",
@@ -429,6 +430,9 @@ VICTOROPS_ENABLED = envbool("VICTOROPS_ENABLED", "True")
 # Webhooks
 WEBHOOKS_ENABLED = envbool("WEBHOOKS_ENABLED", "True")
 INTEGRATIONS_ALLOW_PRIVATE_IPS = envbool("INTEGRATIONS_ALLOW_PRIVATE_IPS", "False")
+
+# Jira
+JIRA_ENABLED = envbool("JIRA_ENABLED", "True")
 
 # Zulip
 ZULIP_ENABLED = envbool("ZULIP_ENABLED", "True")

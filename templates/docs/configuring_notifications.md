@@ -49,7 +49,7 @@ If you want to receive repeated notifications for as long as a particular check 
 down, you have a few different options:
 
 * If you use an **incident management system** (PagerDuty, Splunk On-Call, Opsgenie,
-PagerTree), you can set up escalation rules there.
+PagerTree, Jira), you can set up escalation rules there.
 * Use the **Pushover** integration with the "Emergency" priority. Pushover will
 play a loud notification sound on your phone every 5 minutes until the notification
 is acknowledged.

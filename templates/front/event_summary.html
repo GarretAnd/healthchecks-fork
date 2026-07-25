@@ -52,6 +52,8 @@
     {% endif %}
 {% elif event.channel.kind == "github" %}
     Created a GitHub issue in {{ event.channel.github.repo }}
+{% elif event.channel.kind == "jira" %}
+    Created a Jira issue in {{ event.channel.jira.project_key }}
 {% else %}
     Sent an alert to {{ event.channel.get_kind_display }}
     {% if event.channel.name %}

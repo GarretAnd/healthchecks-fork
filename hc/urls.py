@@ -27,6 +27,7 @@ urlpatterns = [
     path(prefix, include("hc.integrations.googlechat.urls")),
     path(prefix, include("hc.integrations.gotify.urls")),
     path(prefix, include("hc.integrations.group.urls")),
+    path(prefix, include("hc.integrations.jira.urls")),
     path(prefix, include("hc.integrations.matrix.urls")),
     path(prefix, include("hc.integrations.mattermost.urls")),
     path(prefix, include("hc.integrations.msteamsw.urls")),

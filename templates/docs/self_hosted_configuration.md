@@ -38,6 +38,7 @@ from environment variables. Below is a list of environment variables it reads an
 <li><a href="#GITHUB_PUBLIC_LINK">GITHUB_PUBLIC_LINK</a></li>
 <li><a href="#http_proxy">http_proxy and https_proxy</a></li>
 <li><a href="#INTEGRATIONS_ALLOW_PRIVATE_IPS">INTEGRATIONS_ALLOW_PRIVATE_IPS</a></li>
+<li><a href="#JIRA_ENABLED">JIRA_ENABLED</a></li>
 <li><a href="#MASTER_BADGE_URL">MASTER_BADGE_LABEL</a></li>
 <li><a href="#MATRIX_ACCESS_TOKEN">MATRIX_ACCESS_TOKEN</a></li>
 <li><a href="#MATRIX_ACCESS_TOKEN_FILE">MATRIX_ACCESS_TOKEN_FILE</a></li>
@@ -449,6 +450,12 @@ IP address, you will need to enable `INTEGRATIONS_ALLOW_PRIVATE_IPS` to use it.
 This setting *does not* have effect on the Apprise integration, as the Apprise library
 uses its own HTTP client. Apprise can make requests to private IPs regardless
 of this setting.
+
+## `JIRA_ENABLED` {: #JIRA_ENABLED }
+
+Default: `True`
+
+A boolean that turns on/off the Jira integration. Enabled by default.
 
 ## `MASTER_BADGE_LABEL` {: #MASTER_BADGE_URL }
 

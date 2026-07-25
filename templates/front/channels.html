@@ -188,6 +188,15 @@
             <a href="{% url 'hc-add-gotify' project.code %}" class="btn btn-primary">Add Integration</a>
         </li>
 
+        {% if enable_jira %}
+        <li>
+            <img src="{% static 'img/jira.png' %}" class="icon" alt="Jira icon" />
+            <h2>Jira</h2>
+            <p>Create a Jira issue when a check goes down, and close it when it comes back up.</p>
+            <a href="{% url 'hc-add-jira' project.code %}" class="btn btn-primary">Add Integration</a>
+        </li>
+        {% endif %}
+
         <li>
             <img src="{% static 'img/group.png' %}" class="icon" alt="Group icon" />
             <h2>Group</h2>
