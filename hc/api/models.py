@@ -53,6 +53,7 @@ TRANSPORTS: dict[str, tuple[str, type[transports.Transport] | str]] = {
     "googlechat": ("Google Chat", "hc.integrations.googlechat.transport.GoogleChat"),
     "gotify": ("Gotify", "hc.integrations.gotify.transport.Gotify"),
     "group": ("Group", "hc.integrations.group.transport.Group"),
+    "jira": ("Jira", "hc.integrations.jira.transport.Jira"),
     "matrix": ("Matrix", "hc.integrations.matrix.transport.Matrix"),
     "mattermost": ("Mattermost", "hc.integrations.mattermost.transport.Mattermost"),
     "msteamsw": (
@@ -1018,6 +1019,16 @@ class GotifyConf(BaseModel):
         return ", ".join(parts)
 
 
+class JiraConf(BaseModel):
+    url: str
+    username: str
+    token: str
+    project_key: str
+    issue_type: str = "Task"
+    close_transition: str = "Done"
+    labels: list[str] = Field(default_factory=list)
+
+
 class Channel(models.Model):
     name = models.CharField(max_length=100, blank=True)
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -1064,6 +1075,7 @@ class Channel(models.Model):
             "ntfy",
             "group",
             "gotify",
+            "jira",
         )
 
     def assign_all_checks(self) -> None:
@@ -1323,6 +1335,11 @@ class Channel(models.Model):
     def gotify(self) -> GotifyConf:
         assert self.kind == "gotify"
         return GotifyConf.model_validate_json(self.value, strict=True)
+
+    @property
+    def jira(self) -> JiraConf:
+        assert self.kind == "jira"
+        return JiraConf.model_validate_json(self.value, strict=True)
 
     @property
     def group_channels(self) -> QuerySet[Channel]:

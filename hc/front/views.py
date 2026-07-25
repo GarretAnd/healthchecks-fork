@@ -1234,6 +1234,7 @@ def channels(request: AuthenticatedHttpRequest, code: UUID) -> HttpResponse:
         "enable_call": bool(settings.TWILIO_AUTH),
         "enable_discord": bool(settings.DISCORD_CLIENT_ID),
         "enable_github": bool(settings.GITHUB_CLIENT_ID),
+        "enable_jira": settings.JIRA_ENABLED is True,
         "enable_matrix": bool(settings.MATRIX_ACCESS_TOKEN),
         "enable_mattermost": settings.MATTERMOST_ENABLED is True,
         "enable_msteams": settings.MSTEAMS_ENABLED is True,
@@ -1368,6 +1369,10 @@ def edit_channel(request: AuthenticatedHttpRequest, code: UUID) -> HttpResponse:
         from hc.integrations.gotify.views import gotify_form
 
         return gotify_form(request, channel)
+    elif channel.kind == "jira":
+        from hc.integrations.jira.views import jira_form
+
+        return jira_form(request, channel)
 
     return HttpResponseBadRequest()
 
