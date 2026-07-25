@@ -1,0 +1,172 @@
+{% extends "base_project.html" %}
+{% load compress humanize static hc_extras %}
+
+{% block title %}Jira Integration for {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Jira</h1>
+
+        <p>
+        <a href="https://www.atlassian.com/software/jira">Jira</a> is an issue
+        and project tracking tool. This integration creates a Jira issue when
+        a check goes down and closes it again when the check comes back up.
+        </p>
+
+        <h2>Setup Guide</h2>
+
+        <div class="row ai-step">
+            <div class="col-sm-6">
+                <span class="step-no"></span>
+                <p>
+                    In your Jira Cloud site, go to
+                    <strong>Account settings &rarr; Security &rarr; Create and manage API tokens</strong>
+                    and create an API token.
+                </p>
+                <p>
+                    Note your Jira site URL (for example
+                    <code>https://company.atlassian.net</code>) and the project
+                    key where issues should be created.
+                </p>
+            </div>
+        </div>
+
+        <div class="row ai-step">
+            <div class="col-sm-6">
+                <span class="step-no"></span>
+                <p>
+                    Enter the details below. The <strong>Close transition</strong>
+                    is the name of the workflow transition that resolves an issue
+                    (commonly <code>Done</code> or <code>Close Issue</code>).
+                </p>
+            </div>
+        </div>
+
+        <h2>Integration Settings</h2>
+
+        <form method="post" class="form-horizontal">
+            {% csrf_token %}
+
+            <div class="form-group {{ form.url.css_classes }}">
+                <label for="url" class="col-sm-3 control-label">Jira Site URL</label>
+                <div class="col-sm-6">
+                    <input
+                        id="url"
+                        type="text"
+                        class="form-control"
+                        name="url"
+                        placeholder="https://company.atlassian.net"
+                        value="{{ form.url.value|default:"" }}"
+                        required>
+                    {% if form.url.errors %}
+                    <div class="help-block">{{ form.url.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.username.css_classes }}">
+                <label for="username" class="col-sm-3 control-label">Username / Email</label>
+                <div class="col-sm-6">
+                    <input
+                        id="username"
+                        type="text"
+                        class="form-control"
+                        name="username"
+                        value="{{ form.username.value|default:"" }}"
+                        required>
+                    {% if form.username.errors %}
+                    <div class="help-block">{{ form.username.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.token.css_classes }}">
+                <label for="token" class="col-sm-3 control-label">API Token</label>
+                <div class="col-sm-6">
+                    <input
+                        id="token"
+                        type="text"
+                        class="form-control"
+                        name="token"
+                        value="{{ form.token.value|default:"" }}"
+                        required>
+                    {% if form.token.errors %}
+                    <div class="help-block">{{ form.token.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.project_key.css_classes }}">
+                <label for="project_key" class="col-sm-3 control-label">Project Key</label>
+                <div class="col-sm-6">
+                    <input
+                        id="project_key"
+                        type="text"
+                        class="form-control"
+                        name="project_key"
+                        value="{{ form.project_key.value|default:"" }}"
+                        required>
+                    {% if form.project_key.errors %}
+                    <div class="help-block">{{ form.project_key.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.issue_type.css_classes }}">
+                <label for="issue_type" class="col-sm-3 control-label">Issue Type</label>
+                <div class="col-sm-6">
+                    <input
+                        id="issue_type"
+                        type="text"
+                        class="form-control"
+                        name="issue_type"
+                        value="{{ form.issue_type.value|default:"Task" }}"
+                        required>
+                    {% if form.issue_type.errors %}
+                    <div class="help-block">{{ form.issue_type.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.close_transition.css_classes }}">
+                <label for="close_transition" class="col-sm-3 control-label">Close Transition</label>
+                <div class="col-sm-6">
+                    <input
+                        id="close_transition"
+                        type="text"
+                        class="form-control"
+                        name="close_transition"
+                        value="{{ form.close_transition.value|default:"Done" }}"
+                        required>
+                    {% if form.close_transition.errors %}
+                    <div class="help-block">{{ form.close_transition.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {{ form.labels.css_classes }}">
+                <label for="labels" class="col-sm-3 control-label">Extra Labels</label>
+                <div class="col-sm-6">
+                    <input
+                        id="labels"
+                        type="text"
+                        class="form-control"
+                        name="labels"
+                        value="{{ form.labels.value|default:"" }}"
+                        placeholder="comma, separated, labels">
+                    {% if form.labels.errors %}
+                    <div class="help-block">{{ form.labels.errors|join:"" }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary">Save Integration</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
